@@ -1,0 +1,70 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Header General Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+}
+
+.header .logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header .nav {
+  display: flex;
+  gap: 15px;
+}
+
+.header .nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.header .nav a:hover {
+  color: #ffe082;
+}
+
+/* Header User Specific */
+.header-user {
+  background-color: #2196f3; /* Blue for User Header */
+}
+
+/* Header Food Specific */
+.header-food {
+  background-color: #ff5722; /* Orange for Food Header */
+}
+
+/* Main Content */
+.main-content {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 0 20px;
+}

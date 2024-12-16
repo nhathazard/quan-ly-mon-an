@@ -1,0 +1,14 @@
+<div class="food-list-container">
+  <h2>Food List</h2>
+  <ul class="food-list">
+    <li *ngFor="let food of foodList" class="food-item">
+      <img [src]="food.image" [alt]="food.name" class="food-image" />
+      <div class="food-details">
+        <h3 [routerLink]="food.slug">{{ food.name }}</h3>
+        <p>{{ food.description }}</p>
+        <p class="price">Price: ${{ food.price.toFixed(2) }}</p>
+        <button (click)="onOrder(food)" [routerLink]="">Order Now</button>
+      </div>
+    </li>
+  </ul>
+</div>
