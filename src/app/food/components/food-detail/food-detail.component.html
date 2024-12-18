@@ -1,11 +1,8 @@
 <div class="food-detail-container" *ngIf="food">
   <h2>{{ food.name }}</h2>
-  <img [src]="food.image" [alt]="food.name" class="food-image" />
   <p>{{ food.description }}</p>
-  <p><strong>Price:</strong> ${{ food.price.toFixed(2) }}</p>
 </div>
 
-<!-- Nếu không tìm thấy món ăn -->
 <div *ngIf="!food">
   <p>Food not found!</p>
 </div>

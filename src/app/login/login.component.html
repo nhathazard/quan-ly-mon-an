@@ -1,0 +1,39 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Đăng nhập</h2>
+    <div>
+      <label for="username">Tên đăng nhập</label>
+      <input id="username" formControlName="username" type="text" />
+      <div
+        *ngIf="
+          loginForm.get('username')?.invalid &&
+          loginForm.get('username')?.touched
+        "
+      >
+        <small *ngIf="loginForm.get('username')?.errors?.['required']"
+          >Tên đăng nhập là bắt buộc</small
+        >
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Mật khẩu</label>
+      <input id="password" formControlName="password" type="password" />
+      <div
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched
+        "
+      >
+        <small *ngIf="loginForm.get('password')?.errors?.['required']"
+          >Mật khẩu là bắt buộc</small
+        >
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Đăng nhập</button>
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
