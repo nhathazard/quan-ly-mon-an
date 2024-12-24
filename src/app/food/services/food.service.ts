@@ -13,4 +13,9 @@ export class FoodService {
   getAllFoods(): Observable<any> {
     return this.http.get(`${this.apiUrl}/food`);
   }
+
+  addFoods(name: string, description: string): Observable<any> {
+    const payload = { name, description };
+    return this.http.post(`${this.apiUrl}/food/add`, payload);
+  }
 }
