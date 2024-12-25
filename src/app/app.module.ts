@@ -15,19 +15,22 @@ import { AddfoodComponent } from './addfood/addfood.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
+import { FoodModule } from './food/food.module';
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, AddfoodComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FoodModule,
+    AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    MatDialogModule,
     MatButtonModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
   ],
