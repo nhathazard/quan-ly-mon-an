@@ -1,12 +1,21 @@
 <div class="food-list-container">
   <h2>Food List</h2>
-  <button *ngIf="isAdmin()" (click)="addFood()">Thêm món ăn</button>
+  <button *ngIf="isAdmin()" (click)="openDialog()">Thêm món ăn</button>
   <ul class="food-list">
     <li *ngFor="let food of foodList" class="food-item">
       <div class="food-details">
         <h3 [routerLink]="food.id">{{ food.name }}</h3>
         <p>{{ food?.description }}</p>
-        <button (click)="onOrder(food)" [routerLink]="">Order Now</button>
+      </div>
+      <div class="food-details">
+        <button style="background-color: green">Edit</button>
+        <button
+          style="background-color: red; margin-left: 10px"
+          (click)="onOrder(food)"
+          mat-button
+        >
+          Delete
+        </button>
       </div>
     </li>
   </ul>

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FoodService } from '../../services/food.service';
 import { AuthService } from 'src/app/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddfoodComponent } from 'src/app/addfood/addfood.component';
 
 interface Food {
   id: string;
@@ -16,7 +18,8 @@ export class FoodListComponent {
   foodList: Food[] = [];
   constructor(
     private foodService: FoodService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -30,8 +33,10 @@ export class FoodListComponent {
     console.log(`Ordered Food:`, food);
   }
 
-  addFood() {
-    alert('add food');
+  openDialog() {
+    const dialogRef = this.dialog.open(AddfoodComponent, {
+      width: '400px',
+    });
   }
 
   isAdmin(): boolean {

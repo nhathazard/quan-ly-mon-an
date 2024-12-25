@@ -1,0 +1,30 @@
+<div class="add-food-container">
+  <h2>Thêm Món Ăn</h2>
+  <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Tên Món Ăn</label>
+      <input id="name" formControlName="name" type="text" />
+      <div
+        *ngIf="foodForm.get('name')?.invalid && foodForm.get('name')?.touched"
+        class="error"
+      >
+        Tên món ăn là bắt buộc và phải có ít nhất 3 ký tự.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Mô Tả</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div
+        *ngIf="
+          foodForm.get('description')?.invalid &&
+          foodForm.get('description')?.touched
+        "
+        class="error"
+      >
+        Mô tả là bắt buộc.
+      </div>
+    </div>
+    <button type="submit" [disabled]="foodForm.invalid">Thêm Món Ăn</button>
+  </form>
+</div>
