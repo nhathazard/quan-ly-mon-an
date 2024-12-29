@@ -3,11 +3,13 @@ import { FoodService } from '../../services/food.service';
 import { AuthService } from 'src/app/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddfoodComponent } from 'src/app/addfood/addfood.component';
+import { environment } from 'src/environment';
 
 interface Food {
-  id: string;
+  _id: string;
   name: string;
   description: string;
+  image: string;
 }
 @Component({
   selector: 'app-food-list',
@@ -26,11 +28,23 @@ export class FoodListComponent {
     this.foodService.getAllFoods().subscribe((value: Food[]) => {
       console.log(value);
       this.foodList = value;
+      console.log('value', value);
     });
+  }
+  getImageUrl(imagePath: string): string {
+    return `${environment.apiUrl}${imagePath}`;
   }
   onOrder(food: any): void {
     alert(`You ordered: ${food.name}`);
     console.log(`Ordered Food:`, food);
+  }
+
+  onDeleteFood(id: string) {
+    console.log('id', id);
+
+    this.foodService.deleteFood(id).subscribe((value) => {
+      console.log('value', value);
+    });
   }
 
   openDialog() {

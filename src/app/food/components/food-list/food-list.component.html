@@ -6,12 +6,15 @@
       <div class="food-details">
         <h3>{{ food.name }}</h3>
         <p>{{ food?.description }}</p>
+        <div class="image-container">
+          <img [src]="getImageUrl(food.image)" alt="" />
+        </div>
       </div>
       <div class="food-details">
         <button style="background-color: green">Edit</button>
         <button
           style="background-color: red; margin-left: 10px"
-          (click)="onOrder(food)"
+          (click)="onDeleteFood(food._id)"
           mat-button
         >
           Delete

@@ -1,30 +1,29 @@
-<div class="add-food-container">
-  <h2>Thêm Món Ăn</h2>
-  <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Tên Món Ăn</label>
-      <input id="name" formControlName="name" type="text" />
-      <div
-        *ngIf="foodForm.get('name')?.invalid && foodForm.get('name')?.touched"
-        class="error"
-      >
-        Tên món ăn là bắt buộc và phải có ít nhất 3 ký tự.
-      </div>
-    </div>
+<h2 mat-dialog-title>Thêm món ăn mới</h2>
+<form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Tên món ăn</mat-label>
+    <input matInput formControlName="name" required />
+  </mat-form-field>
 
-    <div class="form-group">
-      <label for="description">Mô Tả</label>
-      <textarea id="description" formControlName="description"></textarea>
-      <div
-        *ngIf="
-          foodForm.get('description')?.invalid &&
-          foodForm.get('description')?.touched
-        "
-        class="error"
-      >
-        Mô tả là bắt buộc.
-      </div>
-    </div>
-    <button type="submit" [disabled]="foodForm.invalid">Thêm Món Ăn</button>
-  </form>
-</div>
+  <mat-form-field>
+    <mat-label>Mô tả</mat-label>
+    <input matInput formControlName="description" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Chọn ảnh món ăn</mat-label>
+    <input type="file" (change)="onFileChange($event)" required />
+  </mat-form-field>
+
+  <!-- <div *ngIf="imagePreview">
+    <h3>Ảnh đã chọn:</h3>
+    <img [src]="imagePreview" alt="Ảnh món ăn" width="100" />
+  </div> -->
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Hủy</button>
+    <button mat-button type="submit" [disabled]="foodForm.invalid">
+      Thêm món ăn
+    </button>
+  </div>
+</form>

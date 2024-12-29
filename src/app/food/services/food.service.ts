@@ -17,4 +17,8 @@ export class FoodService {
   createFood(payload: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/food/add`, payload);
   }
+
+  deleteFood(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/food/${id}`);
+  }
 }
