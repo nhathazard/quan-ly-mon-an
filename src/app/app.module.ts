@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { FoodModule } from './food/food.module';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, AddfoodComponent],
   imports: [
@@ -33,6 +34,11 @@ import { FoodModule } from './food/food.module';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, // Thời gian hiển thị thông báo
+      positionClass: 'toast-top-right', // Vị trí thông báo
+      preventDuplicates: true, // Ngăn thông báo trùng lặp
+    }),
   ],
   providers: [
     {

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddfoodComponent } from 'src/app/addfood/addfood.component';
 import { environment } from 'src/environment';
+import { ToastrService } from 'ngx-toastr';
 
 interface Food {
   _id: string;
@@ -21,14 +22,17 @@ export class FoodListComponent {
   constructor(
     private foodService: FoodService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
+    this.loadFoodList();
+  }
+
+  loadFoodList(): void {
     this.foodService.getAllFoods().subscribe((value: Food[]) => {
-      console.log(value);
       this.foodList = value;
-      console.log('value', value);
     });
   }
   getImageUrl(imagePath: string): string {
@@ -41,13 +45,22 @@ export class FoodListComponent {
 
   onDeleteFood(id: string) {
     this.foodService.deleteFood(id).subscribe((value) => {
-      console.log('value', value);
+      if (value) {
+        this.toastr.success('Xóa thành công!', 'Thông báo');
+        this.loadFoodList();
+      }
     });
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(AddfoodComponent, {
       width: '400px',
+    });
+    dialogRef.afterClosed().subscribe((newFood: Food) => {
+      if (newFood) {
+        this.toastr.success('Món ăn đã được thêm!', 'Thông báo');
+        this.loadFoodList();
+      }
     });
   }
 

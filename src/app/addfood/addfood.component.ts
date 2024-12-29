@@ -27,7 +27,6 @@ export class AddfoodComponent {
   }
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    console.log('file', file);
 
     if (file) {
       const reader = new FileReader();
@@ -41,11 +40,6 @@ export class AddfoodComponent {
     }
   }
 
-  triggerFileInput(): void {
-    const fileInput = document.querySelector('#fileInput') as HTMLInputElement;
-    fileInput.click();
-  }
-
   onSubmit(): void {
     if (this.foodForm.valid) {
       const formData = new FormData();
@@ -55,7 +49,7 @@ export class AddfoodComponent {
       formData.append('price', this.foodForm.get('price')?.value);
       this.foodService.createFood(formData).subscribe((response) => {
         if (response) {
-          this.dialogRef.close();
+          this.dialogRef.close(response);
         }
       });
     }
