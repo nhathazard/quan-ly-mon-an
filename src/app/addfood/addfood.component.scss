@@ -1,5 +1,5 @@
 .add-food-container {
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -16,16 +16,20 @@ label {
   margin-bottom: 5px;
 }
 
+div {
+  width: 100%;
+  margin: 35px;
+}
 input,
 textarea {
-  width: 100%;
+  width: 70%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 button {
-  width: 100%;
+  width: 70%;
   padding: 10px;
   background-color: #28a745;
   color: white;

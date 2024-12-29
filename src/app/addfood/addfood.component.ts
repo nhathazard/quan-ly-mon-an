@@ -10,7 +10,7 @@ import { FoodService } from '../food/services/food.service';
 })
 export class AddfoodComponent {
   foodForm!: FormGroup;
-
+  imagePreview: any;
   constructor(
     private fb: FormBuilder,
     private foodService: FoodService,
@@ -22,23 +22,28 @@ export class AddfoodComponent {
       name: ['', [Validators.required]],
       description: [''],
       image: ['', [Validators.required]],
+      price: ['', [Validators.required]],
     });
   }
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    if (file) {
-      // Tạo bản xem trước ảnh
-      const reader = new FileReader();
-      // reader.onload = () => {
-      //   this.imagePreview = reader.result;
-      // };
-      reader.readAsDataURL(file);
+    console.log('file', file);
 
-      // Cập nhật giá trị trong form
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
       this.foodForm.patchValue({
         image: file,
       });
     }
+  }
+
+  triggerFileInput(): void {
+    const fileInput = document.querySelector('#fileInput') as HTMLInputElement;
+    fileInput.click();
   }
 
   onSubmit(): void {
@@ -47,11 +52,12 @@ export class AddfoodComponent {
       formData.append('name', this.foodForm.get('name')?.value);
       formData.append('description', this.foodForm.get('description')?.value);
       formData.append('image', this.foodForm.get('image')?.value);
-
-      // this.foodService.addFood(formData).subscribe((response) => {
-      //   console.log('Món ăn đã được thêm:', response);
-      //   this.dialogRef.close();
-      // });
+      formData.append('price', this.foodForm.get('price')?.value);
+      this.foodService.createFood(formData).subscribe((response) => {
+        if (response) {
+          this.dialogRef.close();
+        }
+      });
     }
   }
 

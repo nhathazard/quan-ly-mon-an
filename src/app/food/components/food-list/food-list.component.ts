@@ -40,8 +40,6 @@ export class FoodListComponent {
   }
 
   onDeleteFood(id: string) {
-    console.log('id', id);
-
     this.foodService.deleteFood(id).subscribe((value) => {
       console.log('value', value);
     });
