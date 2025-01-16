@@ -4,13 +4,12 @@ import { AuthService } from 'src/app/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddfoodComponent } from 'src/app/addfood/addfood.component';
 import { environment } from 'src/environment';
-import { catchError, of } from 'rxjs';
 
 interface Food {
   _id: string;
   name: string;
   description: string;
-  image: any;
+  image: string;
 }
 @Component({
   selector: 'app-food-list',
@@ -26,24 +25,31 @@ export class FoodListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.foodService.getAllFoods().subscribe((value: Food[]) => {
-      console.log(value);
-      this.foodList = value;
-      this.foodList.forEach((food) => {
-        food.image = `${environment.apiUrl}${food.image}`;
-      });
-    });
+    this.loadFoodList();
   }
 
-  deleteFood(id: any) {
-    console.log('id', id);
+  loadFoodList(): void {
+    this.foodService.getAllFoods().subscribe((value: Food[]) => {
+      this.foodList = value;
+    });
+  }
+  getImageUrl(imagePath: string): string {
+    return `${environment.apiUrl}${imagePath}`;
+  }
+  onOrder(food: any): void {
+    alert(`You ordered: ${food.name}`);
+    console.log(`Ordered Food:`, food);
+  }
+
+  onDeleteFood(id: string): void {
     this.foodService.deleteFood(id).subscribe({
-      next(value) {
+      next: (value) => {
         if (value) {
           alert('Delete success');
+          this.loadFoodList();
         }
       },
-      error(err) {
+      error: (err) => {
         alert('User không phải là admin không có quyền xóa');
       },
     });
@@ -56,6 +62,12 @@ export class FoodListComponent {
     });
     dialogRef.afterOpened().subscribe((value) => {
       console.log('value', value);
+    });
+    dialogRef.afterClosed().subscribe((newFood: Food) => {
+      if (newFood) {
+        alert('Món ăn đã được thêm!');
+        this.loadFoodList();
+      }
     });
   }
 

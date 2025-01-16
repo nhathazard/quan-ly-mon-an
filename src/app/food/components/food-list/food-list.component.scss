@@ -73,10 +73,14 @@
     }
   }
 }
+.image-container {
+  width: 300px; /* Kích thước của khối chứa */
+  height: 200px;
+  border: 1px solid #ccc;
+}
 
-::ng-deep {
-  mat-dialog-container {
-    margin-left: 50%;
-    margin-top: -60%;
-  }
+.image-container img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }

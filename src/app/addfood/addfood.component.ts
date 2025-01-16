@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FoodService } from '../food/services/food.service';
 
@@ -10,8 +10,7 @@ import { FoodService } from '../food/services/food.service';
 })
 export class AddfoodComponent {
   foodForm!: FormGroup;
-  file: File | null = null;
-  imageUrl: string | null = null;
+  imagePreview: any;
   constructor(
     private fb: FormBuilder,
     private foodService: FoodService,
@@ -20,42 +19,43 @@ export class AddfoodComponent {
 
   ngOnInit(): void {
     this.foodForm = this.fb.group({
-      name: [''],
+      name: ['', [Validators.required]],
       description: [''],
-      price: [''],
+      image: ['', [Validators.required]],
+      price: ['', [Validators.required]],
     });
   }
-
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    if (file) {
-      this.file = file;
-      this.previewImage(file);
-    }
-  }
 
-  previewImage(file: File): void {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.imageUrl = e.target.result;
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.foodForm.patchValue({
+        image: file,
+      });
+    }
   }
 
   onSubmit(): void {
-    if (this.foodForm.valid && this.file) {
+    if (this.foodForm.valid) {
       const formData = new FormData();
       formData.append('name', this.foodForm.get('name')?.value);
       formData.append('description', this.foodForm.get('description')?.value);
+      formData.append('image', this.foodForm.get('image')?.value);
       formData.append('price', this.foodForm.get('price')?.value);
-      formData.append('image', this.file, this.file.name);
-      this.foodService.createFood(formData).subscribe((value) => {
-        if (value) {
-          this.dialogRef.close();
+      this.foodService.createFood(formData).subscribe((response) => {
+        if (response) {
+          this.dialogRef.close(response);
         }
       });
-    } else {
-      console.log('Form is invalid');
     }
+  }
+
+  onClose(): void {
+    this.dialogRef.close();
   }
 }

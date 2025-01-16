@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FoodListComponent } from './components/food-list/food-list.component';
 import { FoodDetailComponent } from './components/food-detail/food-detail.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
       {
         path: '',
         component: FoodListComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: ':slug',

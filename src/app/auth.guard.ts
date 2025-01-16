@@ -25,7 +25,10 @@ export class AuthGuard implements CanActivate {
     if (this.authService.isAdmin()) {
       return true; // Người dùng là admin
     } else {
-      this.router.navigate(['']); // Điều hướng nếu không phải admin
+      this.router.navigate(['']);
+      alert(
+        'Bạn không có quyền truy cập vào trang này. Vui lòng đăng nhập hoặc bạn không phải là admin!'
+      );
       return false;
     }
   }

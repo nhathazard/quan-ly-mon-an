@@ -1,55 +1,33 @@
-<div class="add-food-container">
-  <h2>Thêm Món Ăn</h2>
-  <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Tên Món Ăn</label>
-      <input id="name" formControlName="name" type="text" />
-      <div
-        *ngIf="foodForm.get('name')?.invalid && foodForm.get('name')?.touched"
-        class="error"
-      >
-        Tên món ăn là bắt buộc và phải có ít nhất 3 ký tự.
-      </div>
-    </div>
+<h2 mat-dialog-title>Thêm món ăn mới</h2>
+<form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Tên món ăn</label>
+    <input formControlName="name" required />
+  </div>
+  <div>
+    <label>Mô tả</label>
+    <input formControlName="description" />
+  </div>
 
-    <div class="form-group">
-      <label for="name">Giá</label>
-      <input id="name" formControlName="price" type="text" />
-      <div
-        *ngIf="foodForm.get('price')?.invalid && foodForm.get('price')?.touched"
-        class="error"
-      >
-        giá bắt buộc
-      </div>
-    </div>
+  <div>
+    <label>Giá</label>
+    <input formControlName="price" />
+  </div>
 
-    <div class="form-group">
-      <label for="description">Mô Tả</label>
-      <textarea id="description" formControlName="description"></textarea>
-      <div
-        *ngIf="
-          foodForm.get('description')?.invalid &&
-          foodForm.get('description')?.touched
-        "
-        class="error"
-      >
-        Mô tả là bắt buộc.
-      </div>
-    </div>
+  <div>
+    <label>Chọn ảnh món ăn</label>
+    <input type="file" (change)="onFileChange($event)" required />
+  </div>
 
-    <div class="form-group">
-      <label for="image">Hình Ảnh</label>
-      <input
-        id="image"
-        type="file"
-        (change)="onFileChange($event)"
-        accept="image/*"
-      />
-      <div *ngIf="imageUrl">
-        <h3>Preview:</h3>
-        <img [src]="imageUrl" alt="Preview" width="100" />
-      </div>
-    </div>
-    <button type="submit" [disabled]="foodForm.invalid">Thêm Món Ăn</button>
-  </form>
-</div>
+  <div *ngIf="imagePreview">
+    <h3>Ảnh đã chọn:</h3>
+    <img [src]="imagePreview" alt="Ảnh món ăn" width="100" />
+  </div>
+
+  <div mat-dialog-actions>
+    <button style="background-color: red" (click)="onClose()">Hủy</button>
+    <button mat-button type="submit" [disabled]="foodForm.invalid">
+      Thêm món ăn
+    </button>
+  </div>
+</form>
