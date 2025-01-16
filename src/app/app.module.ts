@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { FoodModule } from './food/food.module';
+import { AuthService } from './auth.service';
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, AddfoodComponent],
   imports: [
@@ -40,6 +41,7 @@ import { FoodModule } from './food/food.module';
       useClass: AuthInterceptor,
       multi: true,
     },
+    AuthService,
   ],
   bootstrap: [AppComponent],
 })

@@ -2,7 +2,13 @@
   <header class="header header-food">
     <a class="logo" routerLink="">home</a>
     <a class="logo" routerLink="/food">Food</a>
-    <a class="logo" routerLink="/login">login</a>
+    <div *ngIf="isLogin; else loginTemplate">
+      <a class="logo" (click)="logout()">logout</a>
+    </div>
+
+    <ng-template #loginTemplate>
+      <a class="logo" routerLink="/login">login</a>
+    </ng-template>
   </header>
 </div>
 <router-outlet></router-outlet>

@@ -32,10 +32,8 @@ export class LoginComponent {
       const { username, password } = this.loginForm.value;
       this.authService.login(username, password).subscribe({
         next: (response) => {
-          console.log('Đăng nhập thành công:', response);
           localStorage.setItem('access_token', response.access_token);
           const decodedToken: user = jwtDecode(response.access_token);
-          console.log('decodedToken', decodedToken);
           localStorage.setItem('user_role', decodedToken?.role);
           alert('Đăng nhập thành công!');
           this.router.navigate(['']);

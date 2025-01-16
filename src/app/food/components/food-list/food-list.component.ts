@@ -3,11 +3,14 @@ import { FoodService } from '../../services/food.service';
 import { AuthService } from 'src/app/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddfoodComponent } from 'src/app/addfood/addfood.component';
+import { environment } from 'src/environment';
+import { catchError, of } from 'rxjs';
 
 interface Food {
-  id: string;
+  _id: string;
   name: string;
   description: string;
+  image: any;
 }
 @Component({
   selector: 'app-food-list',
@@ -26,16 +29,33 @@ export class FoodListComponent {
     this.foodService.getAllFoods().subscribe((value: Food[]) => {
       console.log(value);
       this.foodList = value;
+      this.foodList.forEach((food) => {
+        food.image = `${environment.apiUrl}${food.image}`;
+      });
     });
   }
-  onOrder(food: any): void {
-    alert(`You ordered: ${food.name}`);
-    console.log(`Ordered Food:`, food);
+
+  deleteFood(id: any) {
+    console.log('id', id);
+    this.foodService.deleteFood(id).subscribe({
+      next(value) {
+        if (value) {
+          alert('Delete success');
+        }
+      },
+      error(err) {
+        alert('User không phải là admin không có quyền xóa');
+      },
+    });
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(AddfoodComponent, {
-      width: '400px',
+      width: '800px',
+      panelClass: 'custom-dialog-container',
+    });
+    dialogRef.afterOpened().subscribe((value) => {
+      console.log('value', value);
     });
   }
 
